@@ -10,12 +10,17 @@ public class MainController {
 
     @GetMapping("/gameList/view")
     public Map<String, String> view() {
-        return Map.of("message", "Hello, Spring Boot!");
+        return Map.of("message", "Main表示");
     }
 
     @PostMapping("/createGame")
     public Map<String, String> bye() {
-        return Map.of("message", "bye!");
+        return Map.of("message", "GM表示");
+    }
+    
+    @GetMapping("/joiner/view/{gameId}/{playerId}")
+    public Map<String, String> view() {
+        return Map.of("message", "Joiner表示");
     }
 
 }
