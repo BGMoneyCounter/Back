@@ -9,7 +9,7 @@ import java.util.Map;
 public class MainController {
 
     @GetMapping("/gameList/view")
-    public Map<String, String> view() {
+    public Map<String, String> gameListView() {
         return Map.of("message", "Main表示");
     }
 
@@ -19,7 +19,7 @@ public class MainController {
     }
     
     @GetMapping("/joiner/view/{gameId}/{playerId}")
-    public Map<String, String> view() {
+    public Map<String, String> joinerView() {
         return Map.of("message", "Joiner表示");
     }
 
