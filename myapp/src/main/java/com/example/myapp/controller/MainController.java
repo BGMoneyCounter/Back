@@ -9,11 +9,19 @@ import java.util.Map;
 
 @RestController // JSON を返すコントローラ
 public class MainController {
-
+	
+	//ゲーム名一覧取得
     @GetMapping("/gameList/view")
     public Map<String, String> gameListView() {
         return Map.of("message", "Main表示");
     }
+    
+    //ゲームを作成する
+    @PostMapping("/createGame")
+    public Map<String, String> creatGame() {
+        return Map.of("message", "GM表示");
+    }
+    
     
 
 }
