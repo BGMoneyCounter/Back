@@ -17,14 +17,15 @@ import lombok.Setter;
 public class Games {
 	@Id
 	@GneratedValue(strategy = GenerationType.IDENTITY)
-	private int game_id;
-	
-	@Column(nullable = false)
-	private string game_name;
-	
-	@Column(nullable= false)
-	private string pass;
-	
-	@Column(nullable= false)
-	private bool end_flag;
+    @Column(name = "game_id")
+    private int gameId;
+
+    @Column(name = "game_name", nullable = false)
+    private String gameName;
+
+    @Column(nullable = false)
+    private String pass;
+
+    @Column(name = "end_flag", nullable = false)
+    private boolean endFlag;
 }
