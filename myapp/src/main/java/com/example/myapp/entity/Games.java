@@ -28,4 +28,4 @@ public class Games {
 
     @Column(name = "end_flag", nullable = false)
     private boolean endFlag;
-}
+
