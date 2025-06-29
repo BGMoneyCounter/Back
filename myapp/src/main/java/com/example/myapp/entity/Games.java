@@ -16,27 +16,15 @@ import lombok.Setter;
 @Setter
 public class Games {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "game_id")
-    private int gameId;
-
-    @Column(name = "game_name", nullable = false)
-    private String gameName;
-
-    @Column(name="game_pass",nullable = false)
-    private String pass;
-
-    @Column(name = "end_flag", nullable = false)
-    private boolean endFlag;
-    
-    public int getGameId() { return gameId; }
-    public String getGameName() { return gameName; }
-    public String getPass() { return pass; }
-    public boolean isEndFlag() { return endFlag; }
-
-    public void setGameId(int gameId) { this.gameId = gameId; }
-    public void setGameName(String gameName) { this.gameName = gameName; }
-    public void setPass(String pass) { this.pass = pass; }
-    public void setEndFlag(boolean endFlag) { this.endFlag = endFlag; }
-
+	@GneratedValue(strategy = GenerationType.IDENTITY)
+	private int game_id;
+	
+	@Column(nullable = false)
+	private string game_name;
+	
+	@Column(nullable= false)
+	private string pass;
+	
+	@Column(nullable= false)
+	private bool end_flag;
 }
