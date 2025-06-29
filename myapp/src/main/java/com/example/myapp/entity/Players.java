@@ -17,15 +17,16 @@ import lombok.Setter;
 public class Players {
 	@Id
 	@GneratedValue(strategy = GenerationType.IDENTITY)
-	private int player_id;
-	
-	@Column(nullable = false)
-	private bool gm_flag;
-	
-	@Column()
-	private int money
-	
-	@ManyToOne
-    @JoinColumn(name = "games", referencedColumnName = "game_id", nullable = false)
-	private Games game_id;
+	@Column(name = "player_id")
+    private int playerId;
+
+    @Column(name = "gm_flag", nullable = false)
+    private boolean gmFlag;
+
+    @Column(nullable = false)
+    private int money;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id", referencedColumnName = "game_id", nullable = false)
+    private Games game;
 }
