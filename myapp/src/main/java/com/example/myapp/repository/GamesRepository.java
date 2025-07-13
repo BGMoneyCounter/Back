@@ -30,4 +30,6 @@ public interface GamesRepository extends JpaRepository<Games,Integer>{
 
     // gameId で取得
     Optional<Games> findByGameId(int gameId);
+    
+    Optional<Games> findByGameNameAndPassAndEndFlagFalse(String gameName, String pass);
 }

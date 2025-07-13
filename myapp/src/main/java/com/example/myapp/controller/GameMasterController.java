@@ -1,6 +1,9 @@
 
 package com.example.myapp.controller;
-
+import com.example.myapp.dto.ChangeMoneyRequest; 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -33,12 +36,21 @@ public class GameMasterController {
 	    }
 	
 	//入力されたお金に変更する
-	@PuttMapping("/changeMoney")
-	public Map<String, String> vhangeMoney() {
-			return Map.of(
-				"message", "お金変更"
-				);
-	    }
+    @PutMapping("/changeMoney")
+    public ResponseEntity<String> changeMoney(@RequestBody ChangeMoneyRequest req) {
+        Optional<Players> opt = playersRepository.findById(req.getPlayerId());
+        if (opt.isEmpty()) {
+            return ResponseEntity.badRequest().body("プレイヤーが見つかりません");
+        }
+
+        Players p = opt.get();
+        int updated = p.getMoney() + req.getMoney();
+        if (updated < 0) updated = 0;  // 負にならないよう補正
+
+        p.setMoney(updated);
+        playersRepository.save(p);
+        return ResponseEntity.ok("お金を更新しました");
+    }
 	
 
 }
