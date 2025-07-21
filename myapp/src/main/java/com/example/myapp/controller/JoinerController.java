@@ -6,7 +6,8 @@ import com.example.myapp.repository.GamesRepository;
 import com.example.myapp.repository.PlayersRepository;
 import com.example.myapp.dto.JoinerViewResponse;
 import com.example.myapp.dto.JoinPlayerRequest;  
-import com.example.myapp.dto.ChangeMoneyRequest; 
+import com.example.myapp.dto.ChangeMoneyRequest;
+import com.example.myapp.dto.ChangePlayerNameRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class JoinerController {
         }
 
         Games game = gameOpt.get();
-        List<Players> players = playersRepository.findByGameGameId(gameId);
+        List<Players> players = playersRepository.findByGame_GameId(gameId);
 
         JoinerViewResponse response = new JoinerViewResponse();
         response.setGameName(game.getGameName());
@@ -54,11 +55,41 @@ public class JoinerController {
 
         Players newPlayer = new Players();
         newPlayer.setGame(game);
-        newPlayer.setGmFlag(false); // 一般プレイヤー
-        newPlayer.setMoney(0); // 初期金額
+        newPlayer.setPlayerName("新しいプレイヤー");
+        newPlayer.setGmFlag(false);
+        newPlayer.setMoney(0);
 
         Players saved = playersRepository.save(newPlayer);
 
         return ResponseEntity.ok(saved.getPlayerId());
+    }
+
+    @PutMapping("/changePlayerName")
+    public ResponseEntity<String> changePlayerName(@RequestBody ChangePlayerNameRequest request) {
+        Optional<Players> playerOpt = playersRepository.findById(request.getPlayerId());
+        if (!playerOpt.isPresent()) {
+            return ResponseEntity.badRequest().body("プレイヤーが見つかりません");
+        }
+
+        Players player = playerOpt.get();
+        player.setPlayerName(request.getPlayerName());
+        playersRepository.save(player);
+        return ResponseEntity.ok("プレイヤー名を変更しました");
+    }
+
+    @PutMapping("/changeMoney")
+    public ResponseEntity<String> changeMoney(@RequestBody ChangeMoneyRequest req) {
+        Optional<Players> opt = playersRepository.findById(req.getPlayerId());
+        if (opt.isEmpty()) {
+            return ResponseEntity.badRequest().body("プレイヤーが見つかりません");
+        }
+
+        Players p = opt.get();
+        int updated = p.getMoney() + req.getMoney();
+        if (updated < 0) updated = 0;
+
+        p.setMoney(updated);
+        playersRepository.save(p);
+        return ResponseEntity.ok("お金を更新しました");
     }
 }

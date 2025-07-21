@@ -16,6 +16,8 @@ public interface PlayersRepository extends JpaRepository<Players, Integer> {
 
     // ゲームIDで所属プレイヤー一覧を取得
     List<Players> findByGameGameId(int gameId);
+    
+    List<Players> findByGame_GameId(int gameId);
 
     // GMフラグが true のプレイヤーを取得（GM一覧）
     List<Players> findByGmFlagTrue();

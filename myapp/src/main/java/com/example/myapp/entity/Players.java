@@ -23,6 +23,9 @@ public class Players {
     @Column(name = "gm_flag", nullable = false)
     private boolean gmFlag;
 
+    @Column(name = "player_name", nullable = false)
+    private String playerName;
+
     @Column(nullable = false)
     private int money;
 
